@@ -1,4 +1,4 @@
-### Cur Test
+### Corserva Test
 
 Hi there, this little sample app is buil usgin the following technologies:
 
