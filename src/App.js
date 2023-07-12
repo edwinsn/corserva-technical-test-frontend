@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from "react";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import Nav from "./Nav";
+
+const SalesOrdersDashboard = lazy(() =>
+  import("./Routes/SaleOrdersDashboard/index.js")
+);
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+const NewSaleOrder = lazy(() => import("./Routes/NewSaleOrder"));
+const EditOrder = lazy(() => import("./Routes/EditSalesOrder"));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Nav />
+      <Suspense>
+        <Routes>
+          <Route path="/" element={<SalesOrdersDashboard />} />
+          <Route path="/not-found" element={<NotFoundPage />} />
+          <Route path="/new-sale-order" element={<NewSaleOrder />} />
+          <Route path="/edit-order/:id" element={<EditOrder />} />
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 
